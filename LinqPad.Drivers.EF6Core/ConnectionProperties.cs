@@ -1,0 +1,37 @@
+using System.Xml.Linq;
+using LINQPad.Extensibility.DataContext;
+
+namespace CloudNimble.LinqPad.Drivers.EF6Core
+{
+
+    /// <summary>
+    ///     Wrapper to read/write connection properties. This acts as our ViewModel - we will bind to it in
+    ///     ConnectionDialog.xaml.
+    /// </summary>
+    class ConnectionProperties
+    {
+        public ConnectionProperties(IConnectionInfo cxInfo)
+        {
+            ConnectionInfo = cxInfo;
+        }
+
+        public IConnectionInfo ConnectionInfo { get; }
+
+        XElement DriverData => ConnectionInfo.DriverData;
+
+        // This is how to create custom connection properties.
+
+        //public string SomeStringProperty
+        //{
+        //	get => (string)DriverData.Element ("SomeStringProperty") ?? "";
+        //	set => DriverData.SetElementValue ("SomeStringProperty", value);
+        //}
+
+        //public int SomeIntProperty
+        //{
+        //	get => (int?)DriverData.Element ("SomeIntProperty") ?? 0;
+        //	set => DriverData.SetElementValue ("SomeIntProperty", value);
+        //}
+    }
+
+}

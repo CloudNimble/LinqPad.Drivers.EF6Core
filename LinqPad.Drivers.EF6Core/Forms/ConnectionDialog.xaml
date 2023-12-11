@@ -1,0 +1,173 @@
+<Window x:Class="CloudNimble.LinqPad.Drivers.EF6Core.ConnectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        Title="EF6 + Microsoft.Data.SqlClient Connection"
+        SizeToContent="Height"
+        Width="750"
+        Background="{DynamicResource BurnRateBlackBrush}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        ui:ThemeManager.IsThemeAware="True"
+        ui:ThemeManager.RequestedTheme="Dark">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemeResources />
+                <ui:XamlControlsResources />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Label" BasedOn="{StaticResource DefaultLabelStyle}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+                <Setter Property="Margin" Value="0,0,0,16" />
+            </Style>
+
+            <!--<Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+            </Style>-->
+
+            <Style TargetType="Hyperlink" BasedOn="{StaticResource DefaultHyperlinkStyle}">
+                <Setter Property="Foreground" Value="{DynamicResource BurnRateBrandBrush}" />
+            </Style>
+
+            <Color x:Key="BurnRateBrand">#FF664B</Color>
+            <Color x:Key="BurnRateBlack">#15171c</Color>
+            <Color x:Key="BurnRateGray">#282A2F</Color>
+            <Color x:Key="White">#FFFFFF</Color>
+
+            <SolidColorBrush x:Key="BurnRateBrandBrush" Color="{StaticResource BurnRateBrand}" />
+            <SolidColorBrush x:Key="BurnRateBlackBrush" Color="{StaticResource BurnRateBlack}" />
+            <SolidColorBrush x:Key="BurnRateGrayBrush" Color="{StaticResource BurnRateGray}" />
+            <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+
+            <StaticResource x:Key="ButtonForeground" ResourceKey="WhiteBrush"/>
+            <StaticResource x:Key="ToggleSwitchFillOn" ResourceKey="BurnRateBrandBrush" />
+            <!--<StaticResource x:Key="ToggleSwitchFillOff" ResourceKey="BurnRateBrandBrush" />-->
+            <!--<StaticResource x:Key="ToggleSwitchStrokeOnPointerOver" ResourceKey="BurnRateBrandBrush" />
+            <StaticResource x:Key="ToggleSwitchKnobFillOnPointerOver" ResourceKey="BurnRateBrandBrush" />-->
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <Window.Foreground>
+        <SolidColorBrush Color="#F5F5F5" />
+    </Window.Foreground>
+
+    <StackPanel Margin="16">
+
+        <Label HorizontalAlignment="Center">
+            Brought to you by the team at
+        </Label>
+        <svgc:SvgBitmap Height="44"
+                        UriSource="pack://application:,,,/CloudNimble.LinqPad.Drivers.EF6Core;component/Resources/BurnRate.io.Logo.V4.Inline.Light.svg"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,16" />
+
+        <Label>Step 1: Give this Connection a name</Label>
+        <TextBox Name="txtFriendlyName" Text="{Binding DisplayName}" />
+
+        <DockPanel>
+            <Label>Step 2: Find the Assembly with your custom DbContext</Label>
+            <Label HorizontalAlignment="Right">
+                <Hyperlink Click="BrowseAssembly">Browse...</Hyperlink>
+            </Label>
+        </DockPanel>
+        <TextBox Name="txtAssemblyPath" Text="{Binding CustomTypeInfo.CustomAssemblyPath}" />
+
+        <DockPanel>
+            <Label>Step 3: Select the custom DbContext Type</Label>
+            <Label HorizontalAlignment="Right">
+                <Hyperlink Click="ChooseType">Choose...</Hyperlink>
+            </Label>
+        </DockPanel>
+        <TextBox Name="txtTypeName" Text="{Binding CustomTypeInfo.CustomTypeName}" />
+
+        <DockPanel>
+            <Label>Step 4: Select your connection strings file (usually appSettings.json)...</Label>
+            <Label HorizontalAlignment="Right">
+                <Hyperlink Click="BrowseAppConfig">Browse...</Hyperlink>
+            </Label>
+        </DockPanel>
+        <TextBox Name="txtAppConfigPath" Text="{Binding AppConfigPath}" />
+
+        <Label>...or provide the ConnectionString here</Label>
+        <Label Foreground="Gray">
+            <TextBlock TextWrapping="WrapWithOverflow">
+                NOTE: If you use EDMX models, you'll need to use the "raw" connection string from inside the "provider connection string" property (between the "&amp;quot;" strings).
+            </TextBlock>
+        </Label>
+
+        <TextBox Name="ConnectionString"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 MinLines="3"
+                 VerticalScrollBarVisibility="Visible"
+                 Text="{Binding DatabaseInfo.CustomCxString}" />
+
+        <StackPanel>
+            <ui:ToggleSwitch IsOn="{Binding IsProduction}"
+                             VerticalAlignment="Center"
+                             OffContent="This is not a Production database"
+            >
+                <ui:ToggleSwitch.OnContent>
+                    <Label Foreground="{StaticResource BurnRateBrandBrush}" Margin="0">CAUTION: Production Database</Label>
+                </ui:ToggleSwitch.OnContent>
+            </ui:ToggleSwitch>
+            <ui:ToggleSwitch IsOn="{Binding Persist}"
+                             VerticalAlignment="Center"
+                             OffContent="Forget this Connection after this session"
+                             OnContent="Remember this Connection between sessions"
+            />
+        </StackPanel>
+
+        <DockPanel LastChildFill="False" Margin="0,16,0,0">
+            <Button Background="{DynamicResource BurnRateBrandBrush}"
+                    Click="CreateConnection"
+                    DockPanel.Dock="Right"
+                    IsDefault="True"
+                    Margin="8,0,0,0"
+                    MinWidth="60"
+                    Padding="11,8,11,8"
+                    TabIndex="1"
+                    VerticalAlignment="Bottom"
+             >
+                <StackPanel Orientation="Horizontal">
+                    <svgc:SvgBitmap Height="16"
+                        UriSource="pack://application:,,,/CloudNimble.LinqPad.Drivers.EF6Core;component/Resources/cloud-plus.svg"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,6,0" />
+                    <TextBlock VerticalAlignment="Center">Create Connection</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button 
+                    Background="{DynamicResource BurnRateGrayBrush}"
+                    Click="TestConnection"
+                    DockPanel.Dock="Right"
+                    MinWidth="60"
+                    TabIndex="2"
+                    Padding="11,8,11,8"
+                    VerticalAlignment="Bottom"
+            >
+                <StackPanel Orientation="Horizontal">
+                    <svgc:SvgBitmap Height="16"
+                        UriSource="pack://application:,,,/CloudNimble.LinqPad.Drivers.EF6Core;component/Resources/cloud-check.svg"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,6,0" />
+                    <TextBlock VerticalAlignment="Center">Test Connection</TextBlock>
+                </StackPanel>
+            </Button>
+
+        </DockPanel>
+
+    </StackPanel>
+
+</Window>
