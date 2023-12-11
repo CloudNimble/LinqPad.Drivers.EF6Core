@@ -23,6 +23,13 @@ This version takes a simpler approach to EF6 support that takes advantage of our
   - Demonstrates advanced XAML techniques for LINQPad drivers
   - Supports LINQPad 6 and later
 
+## Dependencies
+  - ErikEJ.EntityFramework.SqlServer
+  - Microsoft.Data.SqlClient
+  - ModernWpfUI
+  - SharpVectors.WPF
+  - Z.EntityFramework.Plus.EF6
+
 ## Installation
 1. Open LINQPad 6 or later and click "Add connection" in the connection tree.
 2. In the "Choose Data Context" dialog, select "View more drivers" in the bottom left corner.
@@ -47,15 +54,17 @@ public class MyDbContext : DbContext
 ## Configuration
 
 1. You should now see "EF6 + Microsoft.Data.SqlClient on .NET 6 and later" in the "Choose Data Context" dialog. Select it and click "Next".
-[image]
+![Selection](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/f754a1d3-e994-4152-a818-49c56c2058cb)
 
 2. You will be presented with the dialog below.
-[image]
- 
+![Configuration](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/c61a67cc-cebd-483f-8620-994895d5b214)
+
 3. Start by entering a name for the connection.
 4. Click the first orange "Browse" link and select the assembly containing your DbContext.
 5. Click the second orange "Choose" link and select your DbContext type.
 6. Either select your appSettings.json file or an app.config file in the third orange "Browse" link, or enter a connection string directly in the fourth textbox.
+7. Click "Test Connection" and observe the results, making changes as necessary.
+8. Click "Create Connection" to complete the process.
 
 ## Known Issues
 
