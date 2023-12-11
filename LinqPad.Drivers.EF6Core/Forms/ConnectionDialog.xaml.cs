@@ -45,7 +45,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
             var dialog = new OpenFileDialog
             {
                 Title = "Choose application config file",
-                Filter = ".NET Config files (*.config)|*.config|All files (*.*)|*.*",
+                Filter = "AppSettings files (*.json)|*.json|.NET Config files (*.config)|*.config|All files (*.*)|*.*",
             };
 
             if (dialog.ShowDialog() == true)

@@ -2,7 +2,6 @@ using LINQPad;
 using LINQPad.Extensibility.DataContext;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Diagnostics;
@@ -42,7 +41,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
         /// <summary>
         /// 
         /// </summary>
-        public override string Name => "EF6 + Microsoft.Data.SqlClient for LinqPad 8";
+        public override string Name => "EF6 + Microsoft.Data.SqlClient on .NET 6 and later";
 
         #endregion
 

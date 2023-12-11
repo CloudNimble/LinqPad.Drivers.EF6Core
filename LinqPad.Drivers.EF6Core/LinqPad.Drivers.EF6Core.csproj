@@ -1,35 +1,34 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
     <TargetFrameworks>net8-windows;net7-windows;net6-windows</TargetFrameworks>
     <LangVersion>12.0</LangVersion>
 
     <UseWpf>true</UseWpf>
     <AssemblyName>CloudNimble.LinqPad.Drivers.EF6Core</AssemblyName>
+    <PackageName>CloudNimble.LinqPad.Drivers.EF6Core</PackageName>
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2.0.0</Version>
     <Authors>Robert McLaws, CloudNimble, Peter Butzhammer</Authors>
-    <Description>A LINQPad 6+ driver for Entity Framework 6 DbContexts using Microsoft.Data.SqlClient.</Description>
-    <PackageProjectUrl>https://github.com/Peter-B-/Ef6.Core.LINQPadDriver</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Peter-B-/Ef6.Core.LINQPadDriver</RepositoryUrl>
+    <Description>A LINQPad 6+ driver for EF6 DbContexts using Microsoft.Data.SqlClient.</Description>
+    <PackageProjectUrl>https://github.com/CloudNimble/LinqPad.Drivers.EF6Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/LinqPad.Drivers.EF6Core</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>linqpaddriver</PackageTags>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <DefineConstants>NETCORE</DefineConstants>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="(1.*, 2.0.0]" />
-    <PackageReference Include="ErikEJ.EntityFramework.SqlServer" Version="(6.*, 7.0.0]" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="(5.*, 6.0.0]" />
-    <PackageReference Include="LINQPad.Reference" Version="(1.*, 2.0.0]" />
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
+    <PackageReference Include="Azure.Identity" Version="[1.*, 2.0.0)" />
+    <PackageReference Include="ErikEJ.EntityFramework.SqlServer" Version="[6.*, 7.0.0)" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="[5.*, 6.0.0)" />
+    <PackageReference Include="LINQPad.Reference" Version="[1.*, 2.0.0)" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="[7.*, 9.0.0)" />
     <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
-    <PackageReference Include="SharpVectors.Wpf" Version="1.8.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="(4.*, 5.0.0]" />
-    <PackageReference Include="Z.EntityFramework.Plus.EF6" Version="8.101.1.1" />
+    <PackageReference Include="SharpVectors.Wpf" Version="[1.*, 2.0.0)" />
+    <PackageReference Include="System.Data.SqlClient" Version="[4.*, 5.0.0)" />
+    <PackageReference Include="Z.EntityFramework.Plus.EF6" Version="[8.*, 9.0.0)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,24 +40,23 @@
   <ItemGroup>
     <Folder Include="linqpad-samples\\" />
     <Content Include="linqpad-samples\\*.*" />
-    <None Remove="Resources\*.*" />
-    <Content Include="FailedConnection.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-    <Content Include="Connection.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\*.*" />
+    <None Remove="*.png" />
+
+    <Content Include="*.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\*.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="FailedConnection.png" />
+    <None Include="..\README.md" Pack="true" PackagePath="">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
 
   <Target Name="PostBuild1" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /i/y/s &quot;$(TargetDir)*.*&quot; &quot;%25LocalAppData%25\\LINQPad\\Drivers\\DataContext\\NetCore\\$(TargetName)&quot;" />
