@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Breakdance.AspNetCore</PackageId>
-    <Title>Breakdance for AspNetCore</Title>
+    <PackageId>CloudNimble.LinqPad.Drivers.EF6Core</PackageId>
+    <Title>LINQPad Driver for EF6 + Microsoft.Data.SqlClient</Title>
     <Description>A LINQPad 6+ driver for EF6 DbContexts using Microsoft.Data.SqlClient.</Description>
     <!--<PackageTags>$(PackageTags)</PackageTags>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -58,3 +58,4 @@
     <Exec Command="xcopy /i/y/s &quot;$(TargetDir)*.*&quot; &quot;%25LocalAppData%25\\LINQPad\\Drivers\\DataContext\\NetCore\\$(TargetName)&quot;" />
   </Target>
 </Project>
+ 6+
