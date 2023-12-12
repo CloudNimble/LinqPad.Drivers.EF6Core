@@ -6,18 +6,14 @@ using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Diagnostics;
 using System.Linq;
-using Z.EntityFramework.Extensions.Core.Infrastructure;
 using Z.EntityFramework.Extensions.Core.SchemaObjectModel;
 
 namespace CloudNimble.LinqPad.Drivers.EF6Core
 {
 
     /// <summary>
-    /// 
+    /// A LINQPad Driver for Entity Framework 6x that is powered by EF metadata instead of reflection.
     /// </summary>
-    /// <remarks>
-    /// It's not exactly clear how instances are managed within LinqPad. We'll need to talk to Joe Albahari about this.
-    /// </remarks>
     public class EF6Driver : StaticDataContextDriver
     {
 
@@ -69,6 +65,21 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="cxInfo"></param>
+        /// <returns></returns>
+        public override IEnumerable<string> GetNamespacesToAdd(IConnectionInfo cxInfo)
+        {
+            return new[]
+            {
+                "Microsoft.Data.SqlClient",
+                // RWM: This ensure that DbSet<>.Include(Action<>) methods are available.
+                "System.Data.Entity"
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="connectionInfo"></param>
         /// <returns></returns>
         public override string GetConnectionDescription(IConnectionInfo connectionInfo)
@@ -87,7 +98,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
             if (string.IsNullOrEmpty(cxInfo.DatabaseInfo.CustomCxString))
                 return [];
 
-            return [ cxInfo.DatabaseInfo.CustomCxString ];
+            return [cxInfo.DatabaseInfo.CustomCxString];
         }
 
         /// <summary>
@@ -100,7 +111,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
             if (string.IsNullOrEmpty(cxInfo.DatabaseInfo.CustomCxString))
                 return [];
 
-            return [ new ParameterDescriptor("param", "System.String") ];
+            return [new ParameterDescriptor("nameOrConnectionString", "System.String")];
         }
 
         ///// <summary>
@@ -181,7 +192,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
 
                                 return entitySetItem;
                             }).ToList()
-                    };  
+                    };
                 }).ToList();
 
             // RWM: Fix up the hyperlinks.
@@ -224,7 +235,7 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
                 //                    .Select(c => c.EntityType.EntityTypeMapping.TypeName)
                 //                    .FirstOrDefault());
                 //}
-                
+
                 dbContext.Database.Log = executionManager.SqlTranslationWriter.WriteLine;
             }
         }
