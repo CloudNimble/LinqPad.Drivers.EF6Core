@@ -32,8 +32,12 @@ This version takes a simpler approach to EF6 support that takes advantage of our
 ## Installation
 1. Open LINQPad 6 or later and click "Add connection" in the connection tree.
 2. In the "Choose Data Context" dialog, select "View more drivers" in the bottom left corner.
+![Choose Data Context](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/b8704b83-646c-4cd5-8af6-d54d82af5d22)
+
 3. In the "LINQPad NuGet Manager" dialog, select the "Show all drivers" option at the top of the center column.
 4. Search for [CloudNimble.LinqPad.Drivers.EF6Core](https://nuget.org/packages/CloudNimble.LinqPad.Drivers.EF6Core) and install it.
+![Installing the Driver](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/5bcc1471-6dcf-48bf-8dbd-5e88123e6ba6)
+
 5. Close the dialog. 
 
 ## Supported DbContexts
@@ -53,7 +57,7 @@ public class MyDbContext : DbContext
 ## Configuration
 
 1. You should now see "EF6 + Microsoft.Data.SqlClient on .NET 6 and later" in the "Choose Data Context" dialog. Select it and click "Next".
-![Selection](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/f754a1d3-e994-4152-a818-49c56c2058cb)
+![Selection](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/4fa4f464-c21e-4872-958d-5b07cad8fd87)
 
 2. You will be presented with the dialog below.
 ![Configuration](https://github.com/CloudNimble/LinqPad.Drivers.EF6Core/assets/1657085/c61a67cc-cebd-483f-8620-994895d5b214)
