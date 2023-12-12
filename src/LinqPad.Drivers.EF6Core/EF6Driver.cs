@@ -23,8 +23,8 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
 
         #region Private Members
 
-        DbContext _dbContextInstance;
-        DbModel _model;
+        //DbContext _dbContextInstance;
+        //DbModel _model;
         Dictionary<string, ExplorerItem> _mappedExplorerItems = [];
         Dictionary<Type, string> _entityTypeToConceptualTypeMappings = [];
         Dictionary<string, ICustomMemberProvider> _mappedMemberProviders = [];
@@ -103,30 +103,30 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
             return [ new ParameterDescriptor("param", "System.String") ];
         }
 
-        /// <summary>
-        /// T
-        /// </summary>
-        /// <param name="objectToWrite"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// This is called when the user calls Dump() on an object in the query window.
-        /// </remarks>
-        public override ICustomMemberProvider GetCustomDisplayMemberProvider(object objectToWrite)
-        {
-            if (objectToWrite is null)
-                return null;
+        ///// <summary>
+        ///// T
+        ///// </summary>
+        ///// <param name="objectToWrite"></param>
+        ///// <returns></returns>
+        ///// <remarks>
+        ///// This is called when the user calls Dump() on an object in the query window.
+        ///// </remarks>
+        //public override ICustomMemberProvider GetCustomDisplayMemberProvider(object objectToWrite)
+        //{
+        //    if (objectToWrite is null)
+        //        return null;
 
-            Utilities.Debug();
+        //    Utilities.Debug();
 
-            if (!_entityTypeToConceptualTypeMappings.ContainsKey(objectToWrite.GetType()))
-                return null;
+        //    if (!_entityTypeToConceptualTypeMappings.ContainsKey(objectToWrite.GetType()))
+        //        return null;
 
-            //if (!_mappedMemberProviders.ContainsKey(objectToWrite.GetType().FullName))
-            //    _mappedMemberProviders[objectToWrite.GetType().FullName] = new EF6MemberProvider(_dbContextInstance, _model, objectToWrite);
+        //    //if (!_mappedMemberProviders.ContainsKey(objectToWrite.GetType().FullName))
+        //    //    _mappedMemberProviders[objectToWrite.GetType().FullName] = new EF6MemberProvider(_dbContextInstance, _model, objectToWrite);
 
-            //return _mappedMemberProviders[objectToWrite.GetType().FullName];
-            return new EF6MemberProvider(_dbContextInstance, _model, objectToWrite);
-        }
+        //    //return _mappedMemberProviders[objectToWrite.GetType().FullName];
+        //    return new EF6MemberProvider(_dbContextInstance, _model, objectToWrite);
+        //}
 
         /// <summary>
         /// 
@@ -209,21 +209,21 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
 
             if (context is DbContext dbContext)
             {
-                if (_dbContextInstance != dbContext)
-                {
-                    _dbContextInstance = dbContext;
-                    _model = dbContext.GetModel();
-                    // RWM: We're using reflection here because the model types show the models' namespacing, which may be different than the DbSets.
-                    _entityTypeToConceptualTypeMappings = _dbContextInstance.GetType().GetProperties()
-                        .Where(c => c.PropertyType.IsGenericType && c.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
-                        .ToDictionary(
-                            k => k.PropertyType.GenericTypeArguments[0],
-                            v => _model.ConceptualModel.EntityContainers
-                                    .SelectMany(e => e.EntitySets)
-                                    .Where(c => c.Name == v.Name)
-                                    .Select(c => c.EntityType.EntityTypeMapping.TypeName)
-                                    .FirstOrDefault());
-                }
+                //if (_dbContextInstance != dbContext)
+                //{
+                //    _dbContextInstance = dbContext;
+                //    _model = dbContext.GetModel();
+                //    // RWM: We're using reflection here because the model types show the models' namespacing, which may be different than the DbSets.
+                //    _entityTypeToConceptualTypeMappings = _dbContextInstance.GetType().GetProperties()
+                //        .Where(c => c.PropertyType.IsGenericType && c.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+                //        .ToDictionary(
+                //            k => k.PropertyType.GenericTypeArguments[0],
+                //            v => _model.ConceptualModel.EntityContainers
+                //                    .SelectMany(e => e.EntitySets)
+                //                    .Where(c => c.Name == v.Name)
+                //                    .Select(c => c.EntityType.EntityTypeMapping.TypeName)
+                //                    .FirstOrDefault());
+                //}
                 
                 dbContext.Database.Log = executionManager.SqlTranslationWriter.WriteLine;
             }

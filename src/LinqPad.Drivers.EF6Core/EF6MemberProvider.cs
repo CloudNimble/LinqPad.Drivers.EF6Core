@@ -1,10 +1,10 @@
+using LINQPad;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using LINQPad;
 using Z.EntityFramework.Extensions.Core.Infrastructure;
 
 namespace CloudNimble.LinqPad.Drivers.EF6Core
@@ -19,16 +19,41 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
         private static MethodInfo getItemMethod;
         private static MethodInfo getEntitySetMethod;
 
-        private readonly string[] names;
-        private readonly Type[] types;
-        private readonly object[] values;
+        private static readonly Dictionary<Type, (List<string> Names, List<Type> Types)> typeMappings = [];
 
-        public EF6MemberProvider(DbContext dbContext, DbModel model, object objectToWrite)
+        private readonly List<string> names;
+        private readonly List<Type> types;
+        private readonly List<object> values;
+
+
+
+
+
+        public EF6MemberProvider(DbContext dbContext, DbModel model, Type objectType, string conceptualTypeName, object objectToWrite)
         {
+
+            if (typeMappings.TryGetValue(objectType, out (List<string> Names, List<Type> Types) value))
+            {
+                names = value.Names;
+                types = value.Types;
+                return;
+            }
+
+            var navPropNames = model.ConceptualModel.EntityTypes
+                .Where(c => c.Name == conceptualTypeName)
+                .FirstOrDefault()
+                .NavigationProperties
+                .Select(c => c.Name);
+
+            var propertyNames = model.ConceptualModel.EntityTypes
+                .Where(c => c.Name == conceptualTypeName)
+                .FirstOrDefault()
+                .Properties
+                .Select(c => c.Name);
+
+
+
             var entityFrameworkMemberProvider = this;
-
-
-
 
             var navProps = new HashSet<string>(GetNavPropNames(dbContext, objectToWrite) ?? Array.Empty<string>());
             var source = (from m in objectToWrite.GetType().GetMembers()
@@ -43,17 +68,20 @@ namespace CloudNimble.LinqPad.Drivers.EF6Core
                               m.Name,
                               type,
                               value = ((isNav && (IsUnloadedEntityAssociation(dbContext, objectToWrite, m) ?? true))
-                                  ? Utilities.OnDemand(m.Name, () => entityFrameworkMemberProvider.GetFieldPropValue(objectToWrite, m), runOnNewThread: false,
-                                                          typeof(IEnumerable).IsAssignableFrom(type))
+                                  ? Utilities.OnDemand(m.Name, () => entityFrameworkMemberProvider.GetFieldPropValue(objectToWrite, m), runOnNewThread: false, typeof(IEnumerable).IsAssignableFrom(type))
                                   : entityFrameworkMemberProvider.GetFieldPropValue(objectToWrite, m))
                           }).ToList();
-            names = source.Select(q => q.Name).ToArray();
-            types = source.Select(q => q.type).ToArray();
-            values = source.Select(q => q.value).ToArray();
+
+
+            names = source.Select(q => q.Name).ToList();
+            types = source.Select(q => q.type).ToList();
+            values = source.Select(q => q.value).ToList();
         }
 
         public IEnumerable<string> GetNames() => names;
+
         public IEnumerable<Type> GetTypes() => types;
+
         public IEnumerable<object> GetValues() => values;
 
         #region Stuff that needs to be rewritten

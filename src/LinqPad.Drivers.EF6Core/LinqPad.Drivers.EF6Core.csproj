@@ -1,21 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
-    <TargetFrameworks>net8-windows;net7-windows;net6-windows</TargetFrameworks>
-    <LangVersion>12.0</LangVersion>
-
-    <UseWpf>true</UseWpf>
+    <RootNamespace>CloudNimble.LinqPad.Drivers.EF6Core</RootNamespace>
     <AssemblyName>CloudNimble.LinqPad.Drivers.EF6Core</AssemblyName>
-    <PackageName>CloudNimble.LinqPad.Drivers.EF6Core</PackageName>
+    <TargetFrameworks>net8-windows;net7-windows;net6-windows</TargetFrameworks>
+    <UseWpf>true</UseWpf>
+  </PropertyGroup>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
-    <Authors>Robert McLaws, CloudNimble, Peter Butzhammer</Authors>
+  <PropertyGroup>
+    <PackageId>Breakdance.AspNetCore</PackageId>
+    <Title>Breakdance for AspNetCore</Title>
     <Description>A LINQPad 6+ driver for EF6 DbContexts using Microsoft.Data.SqlClient.</Description>
-    <PackageProjectUrl>https://github.com/CloudNimble/LinqPad.Drivers.EF6Core</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/CloudNimble/LinqPad.Drivers.EF6Core</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>linqpaddriver</PackageTags>
+    <!--<PackageTags>$(PackageTags)</PackageTags>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -53,7 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="">
+    <None Include="..\..\README.md" Pack="true" PackagePath="">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
