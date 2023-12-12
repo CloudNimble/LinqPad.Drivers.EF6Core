@@ -54,7 +54,7 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PostBuild1" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild1" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'Release'">
     <Exec Command="xcopy /i/y/s &quot;$(TargetDir)*.*&quot; &quot;%25LocalAppData%25\\LINQPad\\Drivers\\DataContext\\NetCore\\$(TargetName)&quot;" />
   </Target>
 </Project>
