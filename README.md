@@ -1,5 +1,5 @@
 # CloudNimble's LINQPad Drivers for EF6 on .NET Core
-[![Build status](https://dev.azure.com/cloudnimble/LinqPad.Drivers.EF6Core/_apis/build/status/LinqPad.Drivers.EF6Core-CI)](https://dev.azure.com/cloudnimble/LinqPad.Drivers.EF6Core/_build/latest?definitionId=-1)![NuGet](https://img.shields.io/nuget/v/CloudNimble.LinqPad.Drivers.EF6Core)
+[![Build status](https://dev.azure.com/cloudnimble/LinqPad.Drivers.EF6Core/_apis/build/status/LinqPad.Drivers.EF6Core-CI)](https://dev.azure.com/cloudnimble/LinqPad.Drivers.EF6Core/_build/latest?definitionId=74) [![Release status](https://vsrm.dev.azure.com/cloudnimble/_apis/public/Release/badge/d10ead7c-77dc-4ece-9589-090cfba32536/1/1)](https://dev.azure.com/cloudnimble/LinqPad.Drivers.EF6Core/_release?definitionId=1&view=mine&_a=releases) [![NuGet](https://img.shields.io/nuget/v/CloudNimble.LinqPad.Drivers.EF6Core)](https://nuget.org/packages/CloudNimble.LinqPad.Drivers.EF6Core)
 
 ## What is this?
 The team at [BurnRate.io](https://burnrate.io) leverages EF6 and Microsoft.Data.SqlClient to power our game-changing tools for scaling companies.
