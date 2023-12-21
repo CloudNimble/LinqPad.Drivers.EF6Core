@@ -72,7 +72,7 @@
                         Margin="0,0,0,16" />
 
         <Label>Step 1: Give this Connection a name</Label>
-        <TextBox Name="txtFriendlyName" Text="{Binding DisplayName}" />
+        <TextBox Text="{Binding DisplayName}" IsInactiveSelectionHighlightEnabled="True" />
 
         <DockPanel>
             <Label>Step 2: Find the Assembly with your custom DbContext</Label>
@@ -80,7 +80,7 @@
                 <Hyperlink Click="BrowseAssembly">Browse...</Hyperlink>
             </Label>
         </DockPanel>
-        <TextBox Name="txtAssemblyPath" Text="{Binding CustomTypeInfo.CustomAssemblyPath}" />
+        <TextBox Text="{Binding CustomTypeInfo.CustomAssemblyPath}" />
 
         <DockPanel>
             <Label>Step 3: Select the custom DbContext Type</Label>
@@ -88,7 +88,7 @@
                 <Hyperlink Click="ChooseType">Choose...</Hyperlink>
             </Label>
         </DockPanel>
-        <TextBox Name="txtTypeName" Text="{Binding CustomTypeInfo.CustomTypeName}" />
+        <TextBox Text="{Binding CustomTypeInfo.CustomTypeName}" />
 
         <DockPanel>
             <Label>Step 4: Select your connection strings file (usually appSettings.json)...</Label>
@@ -96,7 +96,7 @@
                 <Hyperlink Click="BrowseAppConfig">Browse...</Hyperlink>
             </Label>
         </DockPanel>
-        <TextBox Name="txtAppConfigPath" Text="{Binding AppConfigPath}" />
+        <TextBox Text="{Binding AppConfigPath}" />
 
         <Label>...or provide the ConnectionString here</Label>
         <Label Foreground="Gray">
@@ -105,8 +105,7 @@
             </TextBlock>
         </Label>
 
-        <TextBox Name="ConnectionString"
-                 TextWrapping="Wrap"
+        <TextBox TextWrapping="Wrap"
                  AcceptsReturn="True"
                  MinLines="3"
                  VerticalScrollBarVisibility="Visible"
