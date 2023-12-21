@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="[5.*, 6.0.0)" />
     <PackageReference Include="LINQPad.Reference" Version="[1.*, 2.0.0)" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="[7.*, 9.0.0)" />
-    <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" NoWarn="NU5104" />
     <PackageReference Include="SharpVectors.Wpf" Version="[1.*, 2.0.0)" />
     <PackageReference Include="System.Data.SqlClient" Version="[4.*, 5.0.0)" />
     <PackageReference Include="Z.EntityFramework.Plus.EF6" Version="[8.*, 9.0.0)" />
