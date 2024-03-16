@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.Identity.Client.NativeInterop" Version="[0.*, 1.0.0)" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="[6.*, 7.0.0)" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="[6.*, 7.0.0)" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
     <PackageReference Include="System.Data.SqlClient" Version="[4.*, 5.0.0)" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="[6.*, 7.0.0)" />
     <PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />   
